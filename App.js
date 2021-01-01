@@ -1,21 +1,126 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+
+
+function WelcomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text>sarang is sx243</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    
+  <Button title="Login" onPress={() => navigation.navigate('HomePage', { name: 'Sarang'})} />
+    
+    <Button
+      title="Don't have an account? Create one here!"
+      onPress={() =>
+        navigation.navigate('CreateProfile')
+      }
+    />
+
+
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+function CreateProfileConst({ navigation}){
+  return(
+     
+     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>This is the create account page</Text>
+        <Button title="Create Account!" onPress={() => navigation.navigate('HomePage', { name: 'Sarang'})} />
+     </View>
+  );
+}
+
+function HomeConst({ navigation, route }){
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+  <Text>This is {route.params.name}'s profile, as well as the HomePage after logging in!</Text>
+  <Button title="Profile Button" onPress={() => navigation.navigate('ProfilePage')} />
+  <Button title="Event Create Button!" onPress={() => navigation.navigate('EventCreatePage')} />
+  <Button title="Friends Button!" onPress={() => navigation.navigate('FriendsPage')} />
+  <Button title="Google Maps Button!" onPress={() => navigation.navigate('GoogleMapsPage')} />
+  </View>
+  );
+}
+
+
+//FIRST button on the nav bar
+function ProfileConst({ navigation}){
+  return(
+     
+     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>This is the profile page</Text>
+     </View>
+  );
+}
+
+//SECOND button on the nav bar
+function EventCreateConst({ navigation}){
+  return(
+     
+     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>This is the EventCreateConst page</Text>
+     </View>
+  );
+}
+
+//THIRD button on the nav bar
+function FriendsConst({ navigation}){
+  return(
+     
+     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>This is the Friends page</Text>
+     </View>
+  );
+}
+
+//FOURTH button on the nav bar
+function GoogleMapsConst({ navigation}){
+  return(
+     
+     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>This is the GoogleMaps page. To be released!</Text>
+     </View>
+  );
+}
+
+
+
+
+
+
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Welcome"
+          component={WelcomeScreen}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="CreateProfile" component={CreateProfileConst} /> 
+        <Stack.Screen name="HomePage" component={HomeConst} /> 
+        <Stack.Screen name="ProfilePage" component={ProfileConst} />
+        <Stack.Screen name="EventCreatePage" component={EventCreateConst} />
+        <Stack.Screen name="FriendsPage" component={FriendsConst} />
+        <Stack.Screen name="GoogleMapsPage" component={GoogleMapsConst} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App; 
